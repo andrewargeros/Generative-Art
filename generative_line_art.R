@@ -75,5 +75,6 @@ points %>%
   coord_equal() +
   scale_size_continuous(range = c(0.5, 0.5)) +
   theme_blankcanvas(bg_col = "#d2e7f5", margin_cm = 0) +
-  ggsave(glue("{save_dir}/generative_aRt{Sys.time() %>% str_replace_all(' ',  '_')}"))
+  ggsave(glue("{save_dir}/generative_aRt{Sys.time() %>% str_replace_all(' ',  '_')}"),
+         height = height_in, width = width_in, units = "in", dpi = 700)
   
