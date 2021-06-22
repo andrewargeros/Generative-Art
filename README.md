@@ -19,7 +19,7 @@ This code will generate a city-like plot using random points and branching simul
 Additional **ggplot** customizations can be added to the `plot` section of the code. Currently, the code is set up to use the `Viridis` color scheme. Obviously, this, and the plot background color can be changed.
 
 ```r
-points %>%
+plot = points %>%
   make_lines(edges, n, r, delta, width_in, height_in, p_branch, initial_pts) %>%
   ggplot() +
   aes(x, y, xend = xend, yend = yend, size = -level, color = level) +
@@ -29,9 +29,10 @@ points %>%
   ylim(0, height_in*1000) +
   coord_equal() +
   scale_size_continuous(range = c(0.5, 0.5)) +
-  theme_blankcanvas(bg_col = "#d2e7f5", margin_cm = 0) +
-  ggsave(glue("{save_dir}/generative_aRt{Sys.time() %>% str_replace_all(' ',  '_')}"),
-         height = height_in, width = width_in, units = "in", dpi = 700)
+  theme_blankcanvas(bg_col = "#d2e7f5", margin_cm = 0)
+
+ggsave(glue("{save_dir}/generative_aRt{Sys.time() %>% str_replace_all(' ',  '_')}"),
+       plot, height = height_in, width = width_in, units = "in", dpi = 700)
 ```
 
 ## Example:
