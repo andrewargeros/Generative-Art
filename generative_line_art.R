@@ -12,7 +12,7 @@ height_in = 8.5 # canvas height in inches
 delta = 2 * pi / 180 # angle direction noise
 p_branch = 0.1 # probability of branching
 initial_pts = 3 # number of initial points
-save_dir = "C:/RScripts" # directory to save plot
+save_dir = "C:/PersonalScripts/Generative-Art" # directory to save plot
 
 # Setup Tibbles for Storage -----------------------------------------------------------------------
 points = tibble(x = numeric(n), y = numeric(n), dir = numeric(n), level = integer(n))
@@ -22,7 +22,7 @@ edges = tibble(x = numeric(n), y = numeric(n), xend = numeric(n), yend = numeric
 if(initial_pts > 1) {
   i = 2
   while(i <= initial_pts) {
-    points[i, ] = c(runif(1, 0, width), runif(1, 0, height), runif(1, -2*pi, 2*pi), 1)
+    points[i, ] = list(runif(1, 0, width_in), runif(1, 0, height_in), runif(1, -2*pi, 2*pi), 1)
     i = i + 1
   }
 }
@@ -52,8 +52,8 @@ make_lines = function(points, edges, n, r, delta, width_in, height_in, p_branch,
       }
       points_dist = points %>% mutate(d = sqrt((xj - x)^2 + (yj - y)^2))
       if (min(points_dist$d) >= 1 * r) {
-        points[i, ] = c(xj, yj, alpha, lvl_new)
-        edges[i, ] = c(xj, yj, random_point$x[1], random_point$y[1], lvl_new)
+        points[i, ] = list(xj, yj, alpha, lvl_new)
+        edges[i, ] = list(xj, yj, random_point$x[1], random_point$y[1], lvl_new)
         valid = TRUE
       }
     }
@@ -74,7 +74,7 @@ plot = points %>%
   ylim(0, height_in*1000) +
   coord_equal() +
   scale_size_continuous(range = c(0.5, 0.5)) +
-  theme_blankcanvas(bg_col = "#d2e7f5", margin_cm = 0) 
+  theme_blankcanvas(bg_col = "#040f21", margin_cm = 0) 
 
 ggsave(glue("{save_dir}/generative_aRt{Sys.time() %>% str_replace_all(' ',  '_')}"),
        plot, height = height_in, width = width_in, units = "in", dpi = 700)
