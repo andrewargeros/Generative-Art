@@ -76,6 +76,6 @@ plot = points %>%
   scale_size_continuous(range = c(0.5, 0.5)) +
   theme_blankcanvas(bg_col = "#040f21", margin_cm = 0) 
 
-ggsave(glue("{save_dir}/generative_aRt{Sys.time() %>% str_replace_all(' ',  '_')}"),
+ggsave("test.png",
        plot, height = height_in, width = width_in, units = "in", dpi = 700)
   
